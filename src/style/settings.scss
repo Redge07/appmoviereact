@@ -1,7 +1,15 @@
 @font-face {
-    font-family: "police";
+    font-family: "police1";
+    src: url('../assets/Dongle-Regular.ttf');
+}
+
+@font-face {
+    font-family: "police2";
     src: url('../assets/JosefinSans-Medium.ttf');
 }
+
+$color_1: #546fe4;
+$color-2: #212040;
 
 * {
     margin: 0;
@@ -10,6 +18,8 @@
 }
 
 body {
-    font-family: "police";
+    font-family: "police2";
     min-height: 100vh;
+    background: $color-2;
+    color: white;
 }
