@@ -1,24 +1,45 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import axios from "axios";
+import Card from "../components/Card";
 
 const Home = () => {
-  const [data, setData] = useState("");
+  const [search, setSearch] = useState("test");
+  const [datas, setDatas] = useState([]);
   useEffect(() => {
     axios
       .get(
-        "https://api.themoviedb.org/3/search/movie?api_key=ed82f4c18f2964e75117c2dc65e2161d&query=code&language=fr-FR"
+        `https://api.themoviedb.org/3/search/movie?api_key=ed82f4c18f2964e75117c2dc65e2161d&query=${search}&language=fr-FR`
       )
       .then((res) => {
-        setData(res.data.page);
-        console.log(res.data);
+        setDatas(res.data.results);
+        console.log(res.data.results);
       });
-  }, []);
+  }, [search]);
+
+  const functionSearch = (e) => {
+    if (e.target.value == "") {
+      setSearch("code");
+    } else {
+      setSearch(e.target.value);
+    }
+  };
   return (
     <div>
       <Header />
-      <h2>Bonsoir a tous</h2>
-      <h3>{data}</h3>
+      <input
+        type="text"
+        onChange={(e) => {
+          functionSearch(e);
+        }}
+      ></input>
+      <h3>{search}</h3>
+      <div className="containerMovies">
+        {datas.map((data) => {
+          // return <li key={data.id}>{data.id}</li>;
+          return <Card key={data.id} props={data} />;
+        })}
+      </div>
     </div>
   );
 };
