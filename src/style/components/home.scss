@@ -7,9 +7,16 @@
         list-style: none;
         margin: 30px;
         background: blue;
+        width: 100px;
 
         img {
-            width: 100px;
+            width: 100%;
+        }
+        .description {
+            width: 100%;
+            height: 90px;
+            overflow: hidden;
+            overflow-y: scroll;
         }
     }
 }

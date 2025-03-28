@@ -6,6 +6,7 @@ import Card from "../components/Card";
 const Home = () => {
   const [search, setSearch] = useState("test");
   const [datas, setDatas] = useState([]);
+  const [sortForm, setSortForm] = useState("Default");
   useEffect(() => {
     axios
       .get(
@@ -22,6 +23,7 @@ const Home = () => {
       setSearch("code");
     } else {
       setSearch(e.target.value);
+      setSortForm("Default");
     }
   };
   return (
@@ -32,13 +34,24 @@ const Home = () => {
         onChange={(e) => {
           functionSearch(e);
         }}
+        on
       ></input>
+      <button onClick={() => setSortForm("Top")}>Top</button>
+      <button onClick={() => setSortForm("Down")}>Down</button>
       <h3>{search}</h3>
       <div className="containerMovies">
-        {datas.map((data) => {
-          // return <li key={data.id}>{data.id}</li>;
-          return <Card key={data.id} props={data} />;
-        })}
+        {datas
+          .sort((a, b) => {
+            if (sortForm == "Top") {
+              return b.vote_average - a.vote_average;
+            } else if (sortForm == "Down") {
+              return a.vote_average - b.vote_average;
+            }
+          })
+          .map((data) => {
+            // return <li key={data.id}>{data.id}</li>;
+            return <Card key={data.id} props={data} />;
+          })}
       </div>
     </div>
   );

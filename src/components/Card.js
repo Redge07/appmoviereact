@@ -1,6 +1,29 @@
 import React, { useEffect, useState } from "react";
 
 const Card = ({ props }) => {
+  const addStorage = () => {
+    let actuelData = window.localStorage.movies
+      ? window.localStorage.movies.split(",")
+      : [];
+    if (!actuelData.includes(props.id.toString())) {
+      actuelData.push(props.id);
+      window.localStorage.movies = actuelData;
+    }
+    console.log(window.localStorage.movies);
+  };
+
+  const removeStorage = () => {
+    let actuelData = window.localStorage.movies
+      ? window.localStorage.movies.split(",")
+      : [];
+
+    if (actuelData.includes(props.id.toString())) {
+      let newData = actuelData.filter((id) => id != props.id);
+      window.localStorage.movies = newData;
+    }
+    console.log(window.localStorage.movies);
+  };
+
   return (
     <ul>
       <li>{props.id}</li>
@@ -20,6 +43,9 @@ const Card = ({ props }) => {
           alt="photo"
         ></img>
       </li>
+      <li className="description">{props.overview}</li>
+      <button onClick={() => addStorage()}>Like</button>
+      <button onClick={() => removeStorage()}>Dislike</button>
     </ul>
   );
 };
