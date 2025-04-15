@@ -38,7 +38,7 @@ const Card = ({ props }) => {
           src={
             props.poster_path
               ? `https://image.tmdb.org/t/p/original/` + props.poster_path
-              : "./img/poster.jpg"
+              : "./poster.jpg"
           }
           alt="photo"
         ></img>
